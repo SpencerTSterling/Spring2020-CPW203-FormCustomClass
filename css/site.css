@@ -62,3 +62,12 @@ input[type=button]{
     margin: 2%;
     cursor: pointer;
 }
+
+select ~ p{
+    font-size: small;
+    display: inline-block;
+}    
+
+ul > li {
+    padding: 2%;
+}
