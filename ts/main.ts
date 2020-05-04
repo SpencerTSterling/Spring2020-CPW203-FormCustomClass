@@ -33,10 +33,6 @@ function isAllDataValid(){
     return true;
 }
 
-function displayGame(myGame:VideoGame):void{
-    //Display Video Game below the form
-}
-
 
 function getById(id:string){
     return document.getElementById(id);
@@ -59,4 +55,31 @@ function getVideoGame():VideoGame{
 
     // return game
     return game;
+}
+
+function displayGame(myGame:VideoGame):void{
+    //Display Video Game below the form
+    let displayDiv = getById("display");
+
+    // create h2 with game title
+    let gameHeading = document.createElement("h2");
+    gameHeading.innerText = myGame.title;
+
+    // create paragraph with game details
+    let gameInfo = document.createElement("p");
+    // detailing if the game is or isn't online only
+    let notDigitalDisplay = "";
+    if (myGame.isOnlineOnly){
+        notDigitalDisplay = "This is a digital only game";
+    } else {
+        notDigitalDisplay = "You may purchase a digital or physical copy";
+    }
+    gameInfo.innerText = `${myGame.title} has a rating of ${myGame.rating}. 
+        It costs $${myGame.price.toFixed(2)}. ${notDigitalDisplay}.`; 
+
+    // add <h2> in the <div id="display"> 
+    displayDiv.appendChild(gameHeading);
+
+    // add p in the div
+    displayDiv.appendChild(gameInfo);
 }
