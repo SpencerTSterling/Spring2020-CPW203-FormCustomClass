@@ -13,21 +13,23 @@ function addVideoGame() {
         displayGame(game);
     }
 }
-function isAllDataValid() {
-    return true;
-}
 function getById(id) {
     return document.getElementById(id);
+}
+function isAllDataValid() {
+    return true;
 }
 function getVideoGame() {
     var game = new VideoGame();
     var titleInput = getById("title");
     var priceInput = getById("price");
     var ratingInput = getById("rating");
+    var genreInput = getById("genre");
     var isDigital = getById("online");
     game.title = titleInput.value;
     game.price = parseFloat(priceInput.value);
     game.rating = ratingInput.value;
+    game.genre = genreInput.value;
     game.isOnlineOnly = isDigital.checked;
     return game;
 }
@@ -43,7 +45,7 @@ function displayGame(myGame) {
     else {
         notDigitalDisplay = "You may purchase a digital or physical copy";
     }
-    gameInfo.innerText = myGame.title + " has a rating of " + myGame.rating + ". \n        It costs $" + myGame.price.toFixed(2) + ". " + notDigitalDisplay + ".";
+    gameInfo.innerText = myGame.title + " is a " + myGame.genre + " game\n        and has a rating of " + myGame.rating + ". \n        It costs $" + myGame.price.toFixed(2) + ". \n        " + notDigitalDisplay + ".";
     displayDiv.appendChild(gameHeading);
     displayDiv.appendChild(gameInfo);
 }

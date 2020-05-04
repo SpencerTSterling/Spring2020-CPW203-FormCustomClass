@@ -2,6 +2,7 @@ class VideoGame{
     title: string;
     price: number;
     rating: string;
+    genre: string;
     isOnlineOnly: boolean;
 }
 
@@ -28,14 +29,16 @@ function addVideoGame(){
     }
 }
 
-// ADD VALIDATION CODE
-function isAllDataValid(){
-    return true;
-}
 
 
 function getById(id:string){
     return document.getElementById(id);
+}
+
+// ADD VALIDATION CODE
+function isAllDataValid(){
+
+    return true;
 }
 
 function getVideoGame():VideoGame{
@@ -45,12 +48,14 @@ function getVideoGame():VideoGame{
     let titleInput = <HTMLInputElement>getById("title");
     let priceInput = <HTMLInputElement>getById("price");
     let ratingInput = <HTMLInputElement>getById("rating");
+    let genreInput = <HTMLInputElement>getById("genre");
     let isDigital = <HTMLInputElement>getById("online");
 
 
     game.title = titleInput.value;
     game.price = parseFloat(priceInput.value);
     game.rating = ratingInput.value;
+    game.genre = genreInput.value;
     game.isOnlineOnly = isDigital.checked;
 
     // return game
@@ -74,8 +79,10 @@ function displayGame(myGame:VideoGame):void{
     } else {
         notDigitalDisplay = "You may purchase a digital or physical copy";
     }
-    gameInfo.innerText = `${myGame.title} has a rating of ${myGame.rating}. 
-        It costs $${myGame.price.toFixed(2)}. ${notDigitalDisplay}.`; 
+    gameInfo.innerText = `${myGame.title} is a ${myGame.genre} game
+        and has a rating of ${myGame.rating}. 
+        It costs $${myGame.price.toFixed(2)}. 
+        ${notDigitalDisplay}.`; 
 
     // add <h2> in the <div id="display"> 
     displayDiv.appendChild(gameHeading);
