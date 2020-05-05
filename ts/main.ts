@@ -47,9 +47,34 @@ function isAllDataValid(){
         dataValid = false;
     }
 
+    if (!isOptionSelected("genre", "Please choose the game's genre")){
+        dataValid = false;
+    }
+
+    if (!isOptionSelected("rating", "Please choose the game's rating")){
+        dataValid = false;
+    }
+
     return dataValid;
 
 }
+
+function isOptionSelected(id:string, errMsg:string):boolean{
+    let selectBox = getById(id) as HTMLSelectElement
+    let selectBoxValue = selectBox.value;
+
+    if ( selectBox.value != "no-selection") {
+        return true;
+    } else {
+        let errorBox = <HTMLElement>getById("validation-summary")
+        let errorMessage = document.createElement("p");
+        errorMessage.innerText = errMsg;
+        errorBox.appendChild(errorMessage);    
+        return false;
+    }
+
+}
+
 
 
 /**

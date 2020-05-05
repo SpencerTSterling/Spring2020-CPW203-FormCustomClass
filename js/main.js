@@ -25,7 +25,27 @@ function isAllDataValid() {
     if (!isTextPresent("price", "Please put the game's price")) {
         dataValid = false;
     }
+    if (!isOptionSelected("genre", "Please choose the game's genre")) {
+        dataValid = false;
+    }
+    if (!isOptionSelected("rating", "Please choose the game's rating")) {
+        dataValid = false;
+    }
     return dataValid;
+}
+function isOptionSelected(id, errMsg) {
+    var selectBox = getById(id);
+    var selectBoxValue = selectBox.value;
+    if (selectBox.value != "no-selection") {
+        return true;
+    }
+    else {
+        var errorBox = getById("validation-summary");
+        var errorMessage = document.createElement("p");
+        errorMessage.innerText = errMsg;
+        errorBox.appendChild(errorMessage);
+        return false;
+    }
 }
 function isTextPresent(id, errMsg) {
     var textBox = document.getElementById(id);
