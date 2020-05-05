@@ -40,13 +40,17 @@ function getById(id:string){
 function isAllDataValid(){
     let dataValid = true;
 
-    if (!isTextPresent("title", "Please put the game's title")){
+    // checks if text is present in the input feild
+    if (!isTextPresent("title", "Please input the game's title")){
         dataValid = false;
     }
-    if (!isTextPresent("price", "Please put the game's price")){
+    //checks if text is present and if input is a number
+    if (!isTextPresent("price", "Please input the game's price") ||
+        !isNumber("price", "Please input a numeric value for price")){
         dataValid = false;
     }
 
+    //checks to make sure inputted option is the the defaulted value
     if (!isOptionSelected("genre", "Please choose the game's genre")){
         dataValid = false;
     }
@@ -55,10 +59,34 @@ function isAllDataValid(){
         dataValid = false;
     }
 
+
     return dataValid;
 
 }
 
+/**
+ * Check to see if price is a number value
+ * @param id id of input
+ * @param errMsg error message if test is false
+ */
+function isNumber(id:string, errMsg:string):boolean{
+    let priceInput = <HTMLInputElement>getById("price");
+    if (isNaN(parseFloat(priceInput.value))){
+        let errorBox = <HTMLElement>getById("validation-summary")
+        let errorMessage = document.createElement("p");
+        errorMessage.innerText = errMsg;
+        errorBox.appendChild(errorMessage);  
+        return false;  
+    } else {
+        return true;
+    }
+}
+
+/**
+ * Will compare user's choice against "no-selection" value option
+ * @param id id of the select box
+ * @param errMsg corresponding message
+ */
 function isOptionSelected(id:string, errMsg:string):boolean{
     let selectBox = getById(id) as HTMLSelectElement
     let selectBoxValue = selectBox.value;

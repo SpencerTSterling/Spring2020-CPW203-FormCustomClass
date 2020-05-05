@@ -19,10 +19,11 @@ function getById(id) {
 }
 function isAllDataValid() {
     var dataValid = true;
-    if (!isTextPresent("title", "Please put the game's title")) {
+    if (!isTextPresent("title", "Please input the game's title")) {
         dataValid = false;
     }
-    if (!isTextPresent("price", "Please put the game's price")) {
+    if (!isTextPresent("price", "Please input the game's price") ||
+        !isNumber("price", "Please input a numeric value for price")) {
         dataValid = false;
     }
     if (!isOptionSelected("genre", "Please choose the game's genre")) {
@@ -32,6 +33,19 @@ function isAllDataValid() {
         dataValid = false;
     }
     return dataValid;
+}
+function isNumber(id, errMsg) {
+    var priceInput = getById("price");
+    if (isNaN(parseFloat(priceInput.value))) {
+        var errorBox = getById("validation-summary");
+        var errorMessage = document.createElement("p");
+        errorMessage.innerText = errMsg;
+        errorBox.appendChild(errorMessage);
+        return false;
+    }
+    else {
+        return true;
+    }
 }
 function isOptionSelected(id, errMsg) {
     var selectBox = getById(id);
