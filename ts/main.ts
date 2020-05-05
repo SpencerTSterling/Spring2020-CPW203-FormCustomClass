@@ -22,6 +22,7 @@ window.onload = function(){
 
 function addVideoGame(){
     //alert("button works");
+     resetErrorMessage();    
 
     if(isAllDataValid()){
         let game = getVideoGame();
@@ -37,8 +38,47 @@ function getById(id:string){
 
 // ADD VALIDATION CODE
 function isAllDataValid(){
+    let dataValid = true;
 
-    return true;
+    if (!isTextPresent("title", "Please put the game's title")){
+        dataValid = false;
+    }
+    if (!isTextPresent("price", "Please put the game's price")){
+        dataValid = false;
+    }
+
+    return dataValid;
+
+}
+
+
+/**
+ * Will check to see if text is present in the text boxes
+ * and if there is no text, an error message will display above
+ * the form in the validation-summary div
+ * @param id id of the text box input 
+ * @param errMsg message depicting the error the user made
+ */
+function isTextPresent(id:string, errMsg:string):boolean{
+    let textBox = <HTMLInputElement>document.getElementById(id);
+    let textBoxValue = textBox.value.trim();
+    if (textBoxValue == "") {
+        let errorBox = <HTMLElement>getById("validation-summary")
+        let errorMessage = document.createElement("p");
+        errorMessage.innerText = errMsg;
+        errorBox.appendChild(errorMessage);
+        return false;
+    } else{
+        return true;
+    }
+}
+
+/**
+ * Emptys the validation-summary div of all error messages
+ */
+function resetErrorMessage(){
+    let errorMessage = <HTMLElement>getById("validation-summary");
+    errorMessage.innerText = "";
 }
 
 function getVideoGame():VideoGame{

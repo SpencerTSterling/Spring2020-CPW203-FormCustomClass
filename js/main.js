@@ -8,6 +8,7 @@ window.onload = function () {
     addBtn.onclick = addVideoGame;
 };
 function addVideoGame() {
+    resetErrorMessage();
     if (isAllDataValid()) {
         var game = getVideoGame();
         displayGame(game);
@@ -17,7 +18,32 @@ function getById(id) {
     return document.getElementById(id);
 }
 function isAllDataValid() {
-    return true;
+    var dataValid = true;
+    if (!isTextPresent("title", "Please put the game's title")) {
+        dataValid = false;
+    }
+    if (!isTextPresent("price", "Please put the game's price")) {
+        dataValid = false;
+    }
+    return dataValid;
+}
+function isTextPresent(id, errMsg) {
+    var textBox = document.getElementById(id);
+    var textBoxValue = textBox.value.trim();
+    if (textBoxValue == "") {
+        var errorBox = getById("validation-summary");
+        var errorMessage = document.createElement("p");
+        errorMessage.innerText = errMsg;
+        errorBox.appendChild(errorMessage);
+        return false;
+    }
+    else {
+        return true;
+    }
+}
+function resetErrorMessage() {
+    var errorMessage = getById("validation-summary");
+    errorMessage.innerText = "";
 }
 function getVideoGame() {
     var game = new VideoGame();
